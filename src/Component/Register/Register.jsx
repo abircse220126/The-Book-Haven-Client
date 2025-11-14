@@ -1,33 +1,77 @@
 import React, { use, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
+import { useNavigate } from "react-router";
+
+
 
 const Register = () => {
-  // === Form State Variables ===
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("");
-  const [password, setPassword] = useState("");
 
-  const {CreateUser} = use(AuthContext)
+  const [error, setError] = useState("");
+  const { CreateUser, googleSignIn } = use(AuthContext);
+
+  const navigate = useNavigate();
 
   // === Handle Submit ===
 
   const handleRegister = (e) => {
     e.preventDefault();
-    CreateUser(email,password)
-    .then(result=>{
+
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const photoUrl = e.target.url.value;
+    const password = e.target.password.value;
+
+    // Client Side Validation
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).+$/;
+    const minLengthRegex = /^.{6,}$/;
+
+    if (!passwordRegex.test(password)) {
+      setError(
+        "Password must contain at least one uppercase and one lowercase letter."
+      );
+      return;
+    } else if (!minLengthRegex.test(password)) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
+    // AddFirease Authentication with Email password
+    CreateUser(email, password)
+      .then((result) => {
+        // console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setError(" This Email is already used");
+      });
+
+    // Add Firebase Authentication with Google
+  };
+
+
+
+
+
+  const handleGoogleRegister = () => {
+    console.log("google signin button is Clicked")
+
+    console.log(googleSignIn)
+    console.log(CreateUser)
+
+    googleSignIn()
+      .then(result =>{
         console.log(result.user)
+      })
+      .then(error =>{
+        console.log(error.message)
+      })
 
-        // post Api is work here for post user info
-
-
-    })
-    .catch(error =>console.log(error))
-    console.log("button Clicked")
-
+ 
 
 
-   
+
   };
 
   // === Dynamic 3D Cubes ===
@@ -64,7 +108,9 @@ const Register = () => {
 
       {/* === Register Card === */}
       <div className="relative z-10 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-xl w-full max-w-sm p-6 text-white">
-        <h2 className="text-2xl font-bold mb-4 text-center">Create an Account</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">
+          Create an Account
+        </h2>
 
         <form className="space-y-3" onSubmit={handleRegister}>
           {/* Name */}
@@ -72,9 +118,10 @@ const Register = () => {
             <label className="block mb-1 text-xs font-medium">Full Name</label>
             <input
               type="text"
+              name="name"
               placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              // value={name}
+              // onChange={(e) => setName(e.target.value)}
               className="w-full px-3 py-2 rounded-md bg-white/20 focus:bg-white/30 outline-none border border-white/30 placeholder-gray-200 focus:border-fuchsia-400 transition text-sm"
             />
           </div>
@@ -84,9 +131,10 @@ const Register = () => {
             <label className="block mb-1 text-xs font-medium">Email</label>
             <input
               type="email"
+              name="email"
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              // value={email}
+              // onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 rounded-md bg-white/20 focus:bg-white/30 outline-none border border-white/30 placeholder-gray-200 focus:border-fuchsia-400 transition text-sm"
             />
           </div>
@@ -96,9 +144,10 @@ const Register = () => {
             <label className="block mb-1 text-xs font-medium">Photo URL</label>
             <input
               type="url"
+              name="url"
               placeholder="Enter photo URL"
-              value={photoUrl}
-              onChange={(e) => setPhotoUrl(e.target.value)}
+              // value={photoUrl}
+              // onChange={(e) => setPhotoUrl(e.target.value)}
               className="w-full px-3 py-2 rounded-md bg-white/20 focus:bg-white/30 outline-none border border-white/30 placeholder-gray-200 focus:border-fuchsia-400 transition text-sm"
             />
           </div>
@@ -108,12 +157,14 @@ const Register = () => {
             <label className="block mb-1 text-xs font-medium">Password</label>
             <input
               type="password"
+              name="password"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              // value={password}
+              // onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 rounded-md bg-white/20 focus:bg-white/30 outline-none border border-white/30 placeholder-gray-200 focus:border-fuchsia-400 transition text-sm"
             />
           </div>
+          {error && <h3>{error}</h3>}
 
           {/* Register Button */}
           <button
@@ -133,7 +184,7 @@ const Register = () => {
 
         {/* Google Login Button */}
         <button
-          onClick={() => alert("Google Login Clicked")}
+          onClick={handleGoogleRegister}
           className="flex items-center justify-center gap-2 w-full py-2 bg-white text-gray-800 font-medium rounded-md shadow-md hover:bg-gray-100 transition text-sm"
         >
           <img
