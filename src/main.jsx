@@ -65,7 +65,7 @@ const router = createBrowserRouter([
       },
        {
          path:"/update-book/:id",
-         loader:(params)=>fetch(`http://localhost:3000/viewdetails/${params.id}`),
+         loader:({params})=>fetch(`http://localhost:3000/viewdetails/${params.id}`),
          Component:UpdateBookPage 
       },
       {

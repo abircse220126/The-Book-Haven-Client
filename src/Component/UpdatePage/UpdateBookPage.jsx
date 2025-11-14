@@ -1,27 +1,24 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router";
+import {} from "react";
+import { data, useLoaderData, useNavigate } from "react-router";
 
 
 const UpdateBookPage = () => {
-    const author = useLoaderData()
-    console.log(author)
+    const updateBook=useLoaderData()
+    console.log(updateBook)
+    const navigate =useNavigate()
 
-
-    // const [summary , setSummary]=useState("")
-    // const [title, setTitle] = useState("");
-    // const [author, setAuthor] = useState("");
-    // const [genre, setGenre] = useState("");
-    // const [rating, setRating] = useState("");
+    
 
     const handleUpdate=(e)=>{
         e.preventDefault()
+
         // console.log(title , author , genre , rating, summary)
         const summary = e.target.summary.value
         const title = e.target.title.value
         const author = e.target.author.value
         const genre = e.target.genre.value
         const rating = e.target.rating.value
-        console.log(summary , title ,author , genre, rating)
+        // console.log(summary , title ,author , genre, rating)
 
         const updateInfo={
             title,
@@ -31,8 +28,8 @@ const UpdateBookPage = () => {
             summary
         }
 
-        fetch(`http://localhost:5173/update-book/${_id}`,{
-            method:"PATCh",
+        fetch(`http://localhost:3000/update-book/${updateBook._id}`,{
+            method:"PATCH",
             headers:{
                 'content-type':'application/json'
             },
@@ -40,8 +37,9 @@ const UpdateBookPage = () => {
 
         })
         .then(res=>res.json())
-        .then(error =>{
-            console.log(error)
+        .then(data =>{
+            console.log(data)
+            navigate("/mybook")
         })
 
 
@@ -65,7 +63,7 @@ const UpdateBookPage = () => {
             <input
               type="text"
               name="title"
-              defaultValue="The Midnight Library"
+              defaultValue={updateBook.title}
               className="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400"
             />
           </div>
@@ -76,7 +74,7 @@ const UpdateBookPage = () => {
             <input
               type="text"
               name="author"
-              defaultValue="Matt Haig"
+              defaultValue={updateBook.author}
               className="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
           </div>
@@ -88,7 +86,7 @@ const UpdateBookPage = () => {
               <input
                 type="text"
                 name="genre"
-                defaultValue="Fiction"
+                defaultValue={updateBook.genre}
                 className="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               />
             </div>
@@ -99,7 +97,7 @@ const UpdateBookPage = () => {
                 type="number"
                 name="rating"
                 step="0.1"
-                defaultValue="4.5"
+                defaultValue={updateBook.rating}
                 className="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400"
               />
             </div>
@@ -109,7 +107,7 @@ const UpdateBookPage = () => {
           <div>
             <label className="block text-white font-medium mb-2">Summary</label>
             <textarea
-              defaultValue="A thought-provoking novel about life, regret, and the choices we make."
+              defaultValue={updateBook.summary}
               rows="4"
               name="summary"
               className="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"

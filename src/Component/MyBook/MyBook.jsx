@@ -90,7 +90,9 @@ import { data, Link } from "react-router";
 
 const MyBook = () => {
   const { user, book } = useContext(AuthContext);
-  const [books , Setbooks]=useState(null)
+  // const [books , Setbooks]=useState(null)
+
+  const [books, setBooks] = useState(book);
 
   // If no user or no books available, show message
   if (!user) {
@@ -108,7 +110,7 @@ const MyBook = () => {
 
 
   const handleDelete = (id)=>{
-    console.log("Delete Button is Clicked" , id)
+    // console.log("Delete Button is Clicked" , id)
 
     fetch(`http://localhost:3000/delete-book/${id}`,{
       method:"DELETE"
@@ -117,8 +119,8 @@ const MyBook = () => {
     .then(data=>{
       console.log(data)
 
-      const remaining = userBooks.filter((b)=> b._id!==id)
-      Setbooks(remaining)
+      const remaining = userBooks.filter((b)=> b._id!==data.id)
+      setBooks(remaining)
 
     })
   }
