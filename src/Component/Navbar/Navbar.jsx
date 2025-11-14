@@ -5,20 +5,13 @@ import { auth } from "../FireBase/Firebase.init";
 import { signOut } from "firebase/auth";
 
 const Navbar = () => {
-  const { user, } = use(AuthContext);
+  const { user } = use(AuthContext);
   // console.log(signOutUser);
 
   const link = (
     <>
-      <li>
-        <Link to="register">register</Link>
-      </li>
-      <li>
-        <Link to="login">Login</Link>
-      </li>
-
-      {user && (
-        <>
+      {
+        user?  <>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -31,19 +24,13 @@ const Navbar = () => {
           <li>
             <Link to="/mybook">My Book</Link>
           </li>
-        </>
-      )}
+        </> 
+        :
+        <Link to="/register">Register</Link>
+      }
+
     </>
   );
-
-  // const handleLogOut = () => {
-  //   console.log("logout button is clicked");
-  //   signOutUser()
-  //     .then(() => {})
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
 
   const handleLogOut =()=>{
@@ -53,9 +40,6 @@ const Navbar = () => {
     console.log(error)
    })
   }
-
-
-
 
 
   return (
@@ -209,7 +193,7 @@ const Navbar = () => {
                    hover:scale-105 active:scale-95
                    transition-all duration-300"
             >
-              Logout
+              <Link to="/register">Logout</Link>
             </a>
           ) 
           : 
@@ -221,7 +205,7 @@ const Navbar = () => {
                    hover:scale-105 active:scale-95
                    transition-all duration-300"
             >
-              Login
+              <Link to="/login">Login</Link>
             </a>
           )}
 
