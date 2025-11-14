@@ -1,6 +1,6 @@
 import React, { use, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 
 
@@ -198,7 +198,7 @@ const Register = () => {
         <p className="text-xs text-center mt-5 text-gray-300">
           Already have an account?{" "}
           <span className="text-fuchsia-400 hover:underline cursor-pointer">
-            Login
+            <Link to="/login">Login</Link>
           </span>
         </p>
       </div>
