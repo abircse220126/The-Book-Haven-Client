@@ -25,6 +25,10 @@ const AuthProvider = ({children}) => {
       return  signInWithPopup(auth,googleProvider)
     }
 
+    // const signOutUser =()=>{
+    //    return signOutUser(auth)
+    // }
+
     useEffect(()=>{
         fetch('http://localhost:3000/all-books')
         .then(res=>res.json())
@@ -51,7 +55,7 @@ const AuthProvider = ({children}) => {
         CreateUser,
         signInUser,
         user,
-        googleSignIn
+        googleSignIn,
     }
     return (
         <AuthContext value={authInfo}>
