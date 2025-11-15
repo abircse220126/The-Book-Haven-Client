@@ -11,7 +11,7 @@ const Navbar = () => {
   const link = (
     <>
       {
-        user?  <>
+        user && <>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -25,8 +25,8 @@ const Navbar = () => {
             <Link to="/mybook">My Book</Link>
           </li>
         </> 
-        :
-        <Link to="/register">Register</Link>
+        
+        // <Link to="/register">Register</Link>
       }
 
     </>
@@ -205,7 +205,7 @@ const Navbar = () => {
                    hover:scale-105 active:scale-95
                    transition-all duration-300"
             >
-              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
             </a>
           )}
 

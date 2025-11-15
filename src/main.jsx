@@ -18,6 +18,7 @@ import AllBooksPage from './Component/AllBooksPage/AllBooksPage .jsx';
 import Delete from './Component/DeletePage/Delete.jsx';
 // import Updata from './Component/UpdatePage/Updata.jsx';
 import UpdateBookPage from './Component/UpdatePage/UpdateBookPage.jsx';
+import PrivateRoute from './Component/Route/PrivateRoute.jsx';
 // import AllBook from './Component/AllBookPage/AllBook.jsx';
 // import AllBooksPage from './Component/AllBookPage/AllBookPage.jsx';
 // import AuthProvider from './Context/AuthContext/AuthProvider.jsx';
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
     Component:Root,
     children:[
       {
-        index : true , Component:Home
+        index : true ,
+        // Component:Home
+        element:<PrivateRoute>
+          <Home></Home>
+        </PrivateRoute>
       },
       {
         path:"/register",
@@ -42,31 +47,47 @@ const router = createBrowserRouter([
       {
         path:"/viewdetails/:id",
         loader:({params})=>fetch(`http://localhost:3000/viewdetails/${params.id}`) ,
-        Component:ViewDetails
+        // Component:ViewDetails
+        element:<PrivateRoute>
+          <ViewDetails></ViewDetails>
+        </PrivateRoute>
       },
 
       {
         path:"/addbook",
-        Component:AddBook
+        element:<PrivateRoute>
+          <AddBook></AddBook>
+        </PrivateRoute>
       },
       {
         path:"mybook",
-        Component:MyBook
+        element:<PrivateRoute>
+          <MyBook></MyBook>
+        </PrivateRoute>
 
       },
       {
         path:"all-book",
-        Component:AllBooksPage
+        element:<PrivateRoute>
+          <AllBooksPage></AllBooksPage>
+        </PrivateRoute>
+        // Component:AllBooksPage
         
       },
       {
         path:"/delete/:id",
-        Component:Delete
+        // Component:Delete
+        element:<PrivateRoute>
+          <Delete></Delete>
+        </PrivateRoute>
       },
        {
          path:"/update-book/:id",
          loader:({params})=>fetch(`http://localhost:3000/viewdetails/${params.id}`),
-         Component:UpdateBookPage 
+        //  Component:UpdateBookPage 
+        element:<PrivateRoute>
+          <UpdateBookPage></UpdateBookPage>
+        </PrivateRoute>
       },
       {
         

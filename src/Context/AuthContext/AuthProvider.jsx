@@ -46,9 +46,6 @@ const AuthProvider = ({children}) => {
     },[])
 
 
-    
-
-
 
     const authInfo={
         book,

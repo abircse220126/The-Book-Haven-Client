@@ -48,6 +48,8 @@ const Register = () => {
       });
 
     // Add Firebase Authentication with Google
+
+
   };
 
 
@@ -61,13 +63,14 @@ const Register = () => {
     console.log(CreateUser)
 
     googleSignIn()
-      .then(result =>{
-        console.log(result.user)
-      })
-      .then(error =>{
-        console.log(error.message)
-      })
+    .then((result)=>{
+      console.log(result.user)
+    })
+    .catch(error =>{
+      console.log(error.message)
+    })
 
+   
  
 
 
