@@ -1,6 +1,7 @@
 import React, { use, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
+import { toast } from "react-toastify";
 
 const AddBook = () => {
   // Variables to store input values
@@ -50,6 +51,7 @@ const AddBook = () => {
 
           // alert("data is already Inserted")
           navigate("/mybook")
+          toast.success("Successfully Added!")
 
         }
       });
