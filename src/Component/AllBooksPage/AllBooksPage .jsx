@@ -12,10 +12,10 @@ import TableHeader from './TableHeader';
 
 const AllBooksPage = () => {
   return (
-    <div className="min-h-screen flex justify-center bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700 py-10 px-4">
+    <div className=" min-h-screen flex justify-center bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700 py-10 px-4">
       <div className="max-w-6xl w-full mx-auto rounded-2xl shadow-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20">
-        <table className="min-w-full text-left text-white rounded-2xl overflow-hidden">
-        <TableHeader></TableHeader>
+        <table className="min-w-full text-left text-white rounded-2xl overflow-hidden grid items-start justify-center">
+        <TableHeader className="h-7/12"></TableHeader>
           <AllBooks allBookPromise={allBookPromise}></AllBooks>
         </table>
       </div>

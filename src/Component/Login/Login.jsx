@@ -65,7 +65,7 @@ const Login = () => {
 
       {/* === Login Card === */}
       <div className="relative z-10 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-xl w-full max-w-sm p-6 text-white">
-        <h2 className="text-2xl font-bold mb-4 text-center">Welcome Back 👋</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Login Now</h2>
 
         <form className="space-y-4" onSubmit={handleLogin}>
           {/* Email */}

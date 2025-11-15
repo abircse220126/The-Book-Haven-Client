@@ -193,7 +193,7 @@ const Navbar = () => {
                    hover:scale-105 active:scale-95
                    transition-all duration-300"
             >
-              <Link to="/register">Logout</Link>
+              <Link to="/login">Logout</Link>
             </a>
           ) 
           : 
@@ -207,7 +207,8 @@ const Navbar = () => {
             >
               <Link to="/register">Register</Link>
             </a>
-          )}
+          ) 
+          }
 
          
 

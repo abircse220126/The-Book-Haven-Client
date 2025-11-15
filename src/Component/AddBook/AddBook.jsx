@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { } from "react-router";
+import React, { use, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router";
+import { AuthContext } from "../../Context/AuthContext/AuthContext";
 
 const AddBook = () => {
   // Variables to store input values
@@ -12,19 +13,15 @@ const AddBook = () => {
   const [coverImage, setCoverImage] = useState("");
   const [summary, setSummary] = useState("");
 
+  const navigate = useNavigate()
+
+
+  const { user } = use(AuthContext);
+  console.log(user);
+  console.log(user.email);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can access all variables here
-    // console.log({
-    //   title,
-    //   author,
-    //   genre,
-    //   rating,
-    //   userEmail,
-    //   userName,
-    //   coverImage,
-    //   summary,
-    // });
 
     const newUser = {
       title,
@@ -47,23 +44,30 @@ const AddBook = () => {
       body: JSON.stringify(newUser),
     })
       .then((res) => res.json())
-      .then(data=>{
-        console.log(data)
-        if(data.insertedId){
-            alert("data is Already Inserted")
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+
+          // alert("data is already Inserted")
+          navigate("/mybook")
+
         }
-      }
-    )
-    
+      });
+
+     
+      // <Link to="/mybook"></Link>
   };
 
+  
+
+ 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-700 via-pink-500 to-indigo-600 p-6">
       <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-12 w-full max-w-3xl">
         <h2 className="text-4xl font-extrabold text-center text-gray-900 mb-10 tracking-wide">
           Add New Book
         </h2>
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <input
               type="text"
@@ -95,7 +99,7 @@ const AddBook = () => {
             />
             <input
               type="email"
-              placeholder="📧 Your Email"
+              placeholder={user.email}
               className="p-4 rounded-xl border border-gray-300 placeholder-gray-500 text-black focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 shadow-md"
               value={userEmail}
               onChange={(e) => setUserEmail(e.target.value)}

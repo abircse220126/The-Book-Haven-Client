@@ -1,8 +1,9 @@
-import React from "react";
+import React, { use } from "react";
 import Banner from "../Banner/Banner";
 import BookCard from "../BookCard/BookCard";
 import Books from "../Books/Books";
 import BookHavenSection from "../BookHavenSection/BookHavenSection";
+import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 
 
 const bookPromise = fetch('http://localhost:3000/books')
@@ -10,6 +11,9 @@ const bookPromise = fetch('http://localhost:3000/books')
 
 
 const Home = () => {
+  // const {user}=use(AuthContext)
+  // console.log(user)
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900">
       <Banner></Banner>

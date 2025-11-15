@@ -19,9 +19,7 @@ import Delete from './Component/DeletePage/Delete.jsx';
 // import Updata from './Component/UpdatePage/Updata.jsx';
 import UpdateBookPage from './Component/UpdatePage/UpdateBookPage.jsx';
 import PrivateRoute from './Component/Route/PrivateRoute.jsx';
-// import AllBook from './Component/AllBookPage/AllBook.jsx';
-// import AllBooksPage from './Component/AllBookPage/AllBookPage.jsx';
-// import AuthProvider from './Context/AuthContext/AuthProvider.jsx';
+
 
 
 const router = createBrowserRouter([
@@ -32,8 +30,8 @@ const router = createBrowserRouter([
       {
         index : true ,
         // Component:Home
-        element:<PrivateRoute>
-          <Home></Home>
+        element:<PrivateRoute> 
+          <Home></Home> 
         </PrivateRoute>
       },
       {
@@ -48,6 +46,7 @@ const router = createBrowserRouter([
         path:"/viewdetails/:id",
         loader:({params})=>fetch(`http://localhost:3000/viewdetails/${params.id}`) ,
         // Component:ViewDetails
+
         element:<PrivateRoute>
           <ViewDetails></ViewDetails>
         </PrivateRoute>
@@ -60,7 +59,7 @@ const router = createBrowserRouter([
         </PrivateRoute>
       },
       {
-        path:"mybook",
+        path:"/mybook",
         element:<PrivateRoute>
           <MyBook></MyBook>
         </PrivateRoute>
@@ -85,6 +84,7 @@ const router = createBrowserRouter([
          path:"/update-book/:id",
          loader:({params})=>fetch(`http://localhost:3000/viewdetails/${params.id}`),
         //  Component:UpdateBookPage 
+        
         element:<PrivateRoute>
           <UpdateBookPage></UpdateBookPage>
         </PrivateRoute>

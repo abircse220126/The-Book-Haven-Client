@@ -12,16 +12,20 @@ const AuthProvider = ({children}) => {
 
     const [book , Setbook]=useState([])
     const [user , Setuser] = useState(null)
+    const [loading , setLoding]=useState(true)
 
     const CreateUser=(email , password)=>{
+        setLoding(true)
        return createUserWithEmailAndPassword(auth ,email ,password )
     }
 
     const signInUser =(email ,password)=>{
+        setLoding(true)
        return signInWithEmailAndPassword(auth ,email , password)
     }
 
     const googleSignIn =()=>{
+        setLoding(true)
       return  signInWithPopup(auth,googleProvider)
     }
 
@@ -39,6 +43,7 @@ const AuthProvider = ({children}) => {
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(auth,(currentuser)=>{
             Setuser(currentuser)
+            setLoding(false)
         })
         return ()=>{
             unSubscribe()
@@ -53,6 +58,7 @@ const AuthProvider = ({children}) => {
         signInUser,
         user,
         googleSignIn,
+        loading
     }
     return (
         <AuthContext value={authInfo}>
