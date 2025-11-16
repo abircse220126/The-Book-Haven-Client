@@ -1,13 +1,12 @@
 import React, { use, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import { Link, useNavigate } from "react-router";
-
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
-
   const [error, setError] = useState("");
   const { CreateUser, googleSignIn } = use(AuthContext);
+  const [showPassword, setShowpassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -48,33 +47,30 @@ const Register = () => {
       });
 
     // Add Firebase Authentication with Google
-
-
   };
 
-
-
-
-
   const handleGoogleRegister = () => {
-    console.log("google signin button is Clicked")
+    console.log("google signin button is Clicked");
 
-    console.log(googleSignIn)
-    console.log(CreateUser)
+    console.log(googleSignIn);
+    console.log(CreateUser);
 
     googleSignIn()
-    .then((result)=>{
-      console.log(result.user)
-    })
-    .catch(error =>{
-      console.log(error.message)
-    })
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
-   
- 
+  // handle showPassword
 
-
-
+  const handleShowPassword = (event) => {
+    event.preventDefault();
+    console.log("handle show Password");
+    setShowpassword(!showPassword);
+    console.log(showPassword);
   };
 
   // === Dynamic 3D Cubes ===
@@ -156,17 +152,29 @@ const Register = () => {
           </div>
 
           {/* Password */}
-          <div>
-            <label className="block mb-1 text-xs font-medium">Password</label>
+
+          <label className="block mb-1 text-xs font-medium">Password</label>
+          <div className="relative">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
               // value={password}
               // onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 rounded-md bg-white/20 focus:bg-white/30 outline-none border border-white/30 placeholder-gray-200 focus:border-fuchsia-400 transition text-sm"
             />
+
+            <button
+              className="absolute top-2.5 right-4"
+              onClick={handleShowPassword}
+            >
+              {
+                showPassword? <FaEyeSlash />:<FaEye />  
+
+              }
+            </button>
           </div>
+
           {error && <h3>{error}</h3>}
 
           {/* Register Button */}
