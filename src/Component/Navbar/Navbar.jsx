@@ -118,42 +118,6 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* <div className="navbar-end">
-        <button onClick={handleLogOut}>
-          {user ? (
-            <a
-              className=" btn  bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600
-       text-white font-semibold
-    border-none
-    shadow-md
-    hover:shadow-xl
-    hover:scale-105
-    hover:from-pink-600 hover:via-purple-700 hover:to-indigo-700
-    active:scale-95
-    transition-all duration-300
-  "
-            >
-              Logout
-            </a>
-          ) : (
-            <a
-              className=" btn  bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600
-       text-white font-semibold
-    border-none
-    shadow-md
-    hover:shadow-xl
-    hover:scale-105
-    hover:from-pink-600 hover:via-purple-700 hover:to-indigo-700
-    active:scale-95
-    transition-all duration-300
-  "
-            >
-              Login
-            </a>
-          )}
-        </button>
-      </div> */}
-
       <div className="navbar-end flex items-center gap-4">
         {user && (
           <div className="relative group">
@@ -168,7 +132,7 @@ const Navbar = () => {
 
             {/* DisplayName on Hover */}
             <div
-              className="absolute right-0 mt-2 px-3 py-2
+              className="absolute top-7 right-0.5 mt-2 px-3 py-2
                    bg-white/95 backdrop-blur-md
                    text-gray-900 text-sm font-semibold 
                    rounded-lg shadow-lg 

@@ -14,7 +14,7 @@ const Login = () => {
     rotateY: Math.random() * 360,
   }));
 
-  const { signInUser } = use(AuthContext);
+  const { signInUser, googleSignIn } = use(AuthContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -36,7 +36,15 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    console.log("Google button is Clicked");
+    googleSignIn()
+      .then((result) => {
+        if (result.user.emailVerified) {
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
@@ -97,8 +105,8 @@ const Login = () => {
           </button>
           <button className="link-hover">
             <p className="text-xs text-start mt-5 text-gray-300">
-            Forgate Password?{" "}
-          </p>
+              Forgate Password?{" "}
+            </p>
           </button>
         </form>
 
