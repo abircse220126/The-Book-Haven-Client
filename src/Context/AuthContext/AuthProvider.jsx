@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { } from 'react-router';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../Component/FireBase/Firebase.init';
-import { GoogleAuthProvider } from 'firebase/auth/web-extension';
+
 
 const googleProvider = new GoogleAuthProvider()
 

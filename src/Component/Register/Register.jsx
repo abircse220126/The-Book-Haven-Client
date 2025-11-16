@@ -10,7 +10,7 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  // === Handle Submit ===
+  // Handle register with email and password
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -49,15 +49,18 @@ const Register = () => {
     // Add Firebase Authentication with Google
   };
 
+  // Handle register with google
   const handleGoogleRegister = () => {
     console.log("google signin button is Clicked");
-
-    console.log(googleSignIn);
-    console.log(CreateUser);
 
     googleSignIn()
       .then((result) => {
         console.log(result.user);
+        // console.log(result.user.emailVerified);
+        if(result.user.emailVerified){
+          navigate("/")
+        }
+
       })
       .catch((error) => {
         console.log(error.message);
@@ -168,10 +171,7 @@ const Register = () => {
               className="absolute top-2.5 right-4"
               onClick={handleShowPassword}
             >
-              {
-                showPassword? <FaEyeSlash />:<FaEye />  
-
-              }
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
 

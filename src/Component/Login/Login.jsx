@@ -1,5 +1,5 @@
 import React, { use, useState } from "react";
-import { Link, useNavigate,} from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 
 const Login = () => {
@@ -14,34 +14,30 @@ const Login = () => {
     rotateY: Math.random() * 360,
   }));
 
-  const {signInUser}=use(AuthContext)
-  const [error , setError] = useState("")
-  const navigate = useNavigate()
-  
+  const { signInUser } = use(AuthContext);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin=(e)=>{
-    e.preventDefault()
-    console.log("Login Button is Clicked")
-    const email = e.target.email.value 
-    const password = e.target.password.value
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log("Login Button is Clicked");
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
-    signInUser(email,password)
-    .then(result =>{
-      console.log(result.user)
-      navigate("/")
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setError("Email or Password is Invalid");
+      });
+  };
 
-
-    })
-    .catch(error =>{
-      console.log(error.message)
-      setError("Email or Password is Invalid")
-    })
-    
-  }
-
-  const handleGoogleLogin=()=>{
-    console.log("Google button is Clicked")
-  }
+  const handleGoogleLogin = () => {
+    console.log("Google button is Clicked");
+  };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black text-white">
@@ -90,9 +86,7 @@ const Login = () => {
             />
           </div>
 
-          {
-            error && <h2>{error}</h2>
-          }
+          {error && <h2>{error}</h2>}
 
           {/* Login Button */}
           <button
@@ -100,6 +94,11 @@ const Login = () => {
             className="w-full mt-3 py-2 bg-gradient-to-r from-fuchsia-500 to-indigo-500 hover:from-fuchsia-600 hover:to-indigo-600 rounded-md font-semibold text-white text-sm shadow-lg transition transform hover:scale-[1.02]"
           >
             Login
+          </button>
+          <button className="link-hover">
+            <p className="text-xs text-start mt-5 text-gray-300">
+            Forgate Password?{" "}
+          </p>
           </button>
         </form>
 
