@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 const Banner = () => {
   const gradients = [
@@ -47,9 +48,9 @@ const Banner = () => {
       <div className="relative flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto px-6 py-20">
         {/* Text Section */}
         <div className="z-10 flex flex-col gap-6 text-center md:text-left max-w-xl">
-          <span className="inline-block bg-white/20 backdrop-blur-md px-4 py-1 text-sm font-semibold rounded-full shadow-lg">
+          {/* <span className="inline-block bg-white/20 backdrop-blur-md px-4 py-1 text-sm font-semibold rounded-full shadow-lg">
             📚 Curated Reads • Every Story Matters
-          </span>
+          </span> */}
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold drop-shadow-lg">
             Welcome to{" "}
@@ -65,10 +66,10 @@ const Banner = () => {
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mt-4">
             <button className="px-8 py-3 rounded-full font-semibold text-lg shadow-lg bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-orange-500 hover:to-pink-500 text-white transition-all duration-500 hover:scale-105">
-              All Books
+              <Link to="all-book">All Books</Link>
             </button>
             <button className="px-8 py-3 rounded-full font-semibold text-lg shadow-lg border-2 border-white/70 text-white hover:bg-gradient-to-r hover:from-cyan-400 hover:to-blue-500 transition-all duration-500 hover:scale-105">
-              Create Book
+              <Link to="/addbook">Create Book</Link>
             </button>
           </div>
         </div>

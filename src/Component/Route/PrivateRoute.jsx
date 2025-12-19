@@ -6,8 +6,6 @@ const PrivateRoute = ({ children }) => {
 
     const {user , loading }=use(AuthContext)
     
-      console.log(user) 
-
     if(loading){
         return <span className="loading loading-spinner loading-lg"></span>
     }

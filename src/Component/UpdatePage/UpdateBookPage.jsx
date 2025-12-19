@@ -1,51 +1,38 @@
-import {} from "react";
-import { data, useLoaderData, useNavigate } from "react-router";
-
+import { useState } from "react";
+import { Link, useLoaderData } from "react-router";
+import UpdateModal from "./UpdateModal/UpdateModal";
 
 const UpdateBookPage = () => {
-    const updateBook=useLoaderData()
-    console.log(updateBook)
-    const navigate =useNavigate()
+  const updateBook = useLoaderData();
+  const [showModal, setshowModal] = useState(false);
+  const [updateInfo, setupdateInfo] = useState(null);
 
-    
+  // console.log(updateBook._id);
 
-    const handleUpdate=(e)=>{
-        e.preventDefault()
+  // const navigate = useNavigate();
 
-        // console.log(title , author , genre , rating, summary)
-        const summary = e.target.summary.value
-        const title = e.target.title.value
-        const author = e.target.author.value
-        const genre = e.target.genre.value
-        const rating = e.target.rating.value
-        // console.log(summary , title ,author , genre, rating)
+  const handleUpdate = (e) => {
+    e.preventDefault();
 
-        const updateInfo={
-            title,
-            author,
-            genre,
-            rating,
-            summary
-        }
+    const summary = e.target.summary.value;
+    const title = e.target.title.value;
+    const author = e.target.author.value;
+    const genre = e.target.genre.value;
+    const rating = e.target.rating.value;
 
-        fetch(`http://localhost:3000/update-book/${updateBook._id}`,{
-            method:"PATCH",
-            headers:{
-                'content-type':'application/json'
-            },
-            body:JSON.stringify(updateInfo)
+    console.log(summary, title, author, genre, rating);
+    const updateInfo = {
+      title,
+      author,
+      genre,
+      rating,
+      summary,
+    };
+    setshowModal(true);
+    setupdateInfo(updateInfo);
+  };
 
-        })
-        .then(res=>res.json())
-        .then(data =>{
-            console.log(data)
-            navigate("/mybook")
-        })
-
-
-
-
-    }
+  // console.log(updateInfo)
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700 py-10 px-4">
@@ -54,12 +41,21 @@ const UpdateBookPage = () => {
         <h2 className="text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 mb-8">
           Update Book Information
         </h2>
+        {showModal && (
+          <UpdateModal
+            updateInfo={updateInfo}
+            bookId={updateBook._id}
+            onClose={() => setshowModal(false)}
+          ></UpdateModal>
+        )}
 
         {/* Form */}
-        <form className="space-y-6" onSubmit={handleUpdate}>
+        <form onSubmit={handleUpdate} className="space-y-6">
           {/* Title */}
           <div>
-            <label className="block text-white font-medium mb-2">Book Title</label>
+            <label className="block text-white font-medium mb-2">
+              Book Title
+            </label>
             <input
               type="text"
               name="title"
@@ -92,7 +88,9 @@ const UpdateBookPage = () => {
             </div>
 
             <div>
-              <label className="block text-white font-medium mb-2">Rating</label>
+              <label className="block text-white font-medium mb-2">
+                Rating
+              </label>
               <input
                 type="number"
                 name="rating"
@@ -116,7 +114,9 @@ const UpdateBookPage = () => {
 
           {/* Cover Image URL */}
           <div>
-            <label className="block text-white font-medium mb-2">Cover Image URL</label>
+            <label className="block text-white font-medium mb-2">
+              Cover Image URL
+            </label>
             <input
               type="text"
               defaultValue="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4"
@@ -137,7 +137,7 @@ const UpdateBookPage = () => {
               type="button"
               className="bg-white/20 hover:bg-white/30 text-white px-8 py-3 rounded-full font-semibold shadow-lg transition-all duration-300"
             >
-              Cancel
+              <Link to="/mybook"> Cancel</Link>
             </button>
           </div>
         </form>

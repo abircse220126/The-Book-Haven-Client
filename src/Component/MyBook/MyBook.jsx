@@ -1,14 +1,32 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
-import { data, Link } from "react-router";
+import { Link } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+// import { useQuery } from "@tanstack/react-query";
+
 
 const MyBook = () => {
-  const { user, book } = useContext(AuthContext);
+  const { user ,book } = useContext(AuthContext);
+  const [deleteModal , setdeleteModal]=useState(false)
+  const [deleteId , setdeleteId]=useState(null)
+
+  
+
+  const{data}=useQuery({
+    queryKey:["MyBooks",user._id],
+    queryFn:async()=>{
+      const result = axios.get(`http://localhost:3000/all-books`)
+      return result
+    }
+  })
+
+  const books=data?.data
+  // console.log(books)
 
   const userBooks = book?.filter((b) => b.userEmail === user.email) || [];
 
   const [userBooksState, setUserBooksState] = useState(userBooks);
-
 
   if (!user) {
     return (
@@ -17,22 +35,26 @@ const MyBook = () => {
       </div>
     );
   }
-
-
   const handleDelete = (id) => {
+    setdeleteModal(false)
+    setdeleteId(id)
+
+
+
 
     fetch(`http://localhost:3000/delete-book/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((data) => {
-
         if (data.deletedCount) {
           alert("Deleted Successfully");
           const remaining = userBooks?.filter((b) => b._id !== id);
           setUserBooksState(remaining);
         }
       });
+ 
+ 
   };
 
   return (

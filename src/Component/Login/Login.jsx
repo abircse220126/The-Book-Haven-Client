@@ -94,7 +94,7 @@ const Login = () => {
             />
           </div>
 
-          {error && <h2>{error}</h2>}
+          {error && <h2 className="text-red-500">{error}</h2>}
 
           {/* Login Button */}
           <button

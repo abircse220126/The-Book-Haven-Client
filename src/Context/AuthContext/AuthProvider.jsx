@@ -1,70 +1,69 @@
+import { useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
+import {} from "react-router";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth } from "../../Component/FireBase/Firebase.init";
 
-import { useEffect, useState } from 'react';
-import { AuthContext } from './AuthContext';
-import { } from 'react-router';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth } from '../../Component/FireBase/Firebase.init';
+const googleProvider = new GoogleAuthProvider();
+
+const AuthProvider = ({ children }) => {
+  const [book, Setbook] = useState([]);
+  const [user, Setuser] = useState(null);
+  const [loading, setLoding] = useState(true);
+
+  const CreateUser = (email, password) => {
+    setLoding(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const signInUser = (email, password) => {
+    setLoding(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const googleSignIn = () => {
+    setLoding(true);
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  // const signOutUser =()=>{
+  //    return signOutUser(auth)
+  // }
+
+  useEffect(() => {
+    fetch("http://localhost:3000/all-books")
+      .then((res) => res.json())
+      .then((data) => Setbook(data));
+  }, []);
+
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentuser) => {
+      Setuser(currentuser);
+      setLoding(false);
+    });
+    return () => {
+      unSubscribe();
+    };
+  }, []);
 
 
-const googleProvider = new GoogleAuthProvider()
+  console.log(user?.accessToken);
 
-const AuthProvider = ({children}) => {
-
-    const [book , Setbook]=useState([])
-    const [user , Setuser] = useState(null)
-    const [loading , setLoding]=useState(true)
-
-    const CreateUser=(email , password)=>{
-        setLoding(true)
-       return createUserWithEmailAndPassword(auth ,email ,password )
-    }
-
-    const signInUser =(email ,password)=>{
-        setLoding(true)
-       return signInWithEmailAndPassword(auth ,email , password)
-    }
-
-    const googleSignIn =()=>{
-        setLoding(true)
-      return  signInWithPopup(auth,googleProvider)
-    }
-
-    // const signOutUser =()=>{
-    //    return signOutUser(auth)
-    // }
-
-    useEffect(()=>{
-        fetch('http://localhost:3000/all-books')
-        .then(res=>res.json())
-        .then(data=>Setbook(data))
-
-    },[])
-
-    useEffect(()=>{
-        const unSubscribe = onAuthStateChanged(auth,(currentuser)=>{
-            Setuser(currentuser)
-            setLoding(false)
-        })
-        return ()=>{
-            unSubscribe()
-        }
-    },[])
-
-
-
-    const authInfo={
-        book,
-        CreateUser,
-        signInUser,
-        user,
-        googleSignIn,
-        loading
-    }
-    return (
-        <AuthContext value={authInfo}>
-            {children}
-        </AuthContext>
-    );
+  const authInfo = {
+    book,
+    CreateUser,
+    signInUser,
+    user,
+    googleSignIn,
+    loading,
+  };
+  return <AuthContext value={authInfo}>{children}</AuthContext>;
 };
 
 export default AuthProvider;

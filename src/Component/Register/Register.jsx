@@ -2,6 +2,7 @@ import React, { use, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import { Link, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+// import { sendEmailVerification } from "firebase/auth";
 
 const Register = () => {
   const [error, setError] = useState("");
@@ -38,11 +39,12 @@ const Register = () => {
     // AddFirease Authentication with Email password
     CreateUser(email, password)
       .then((result) => {
-        // console.log(result.user);
-        navigate("/");
+
+        navigate("/")
+        
       })
       .catch((error) => {
-        console.log(error.message);
+        // console.log(error.message);
         setError(" This Email is already used");
       });
 
@@ -56,7 +58,7 @@ const Register = () => {
     googleSignIn()
       .then((result) => {
         console.log(result.user);
-        // console.log(result.user.emailVerified);
+        // console.log(result.user.emailVerified); 
         if(result.user.emailVerified){
           navigate("/")
         }
@@ -71,7 +73,6 @@ const Register = () => {
 
   const handleShowPassword = (event) => {
     event.preventDefault();
-    console.log("handle show Password");
     setShowpassword(!showPassword);
     console.log(showPassword);
   };
@@ -162,8 +163,6 @@ const Register = () => {
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
-              // value={password}
-              // onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 rounded-md bg-white/20 focus:bg-white/30 outline-none border border-white/30 placeholder-gray-200 focus:border-fuchsia-400 transition text-sm"
             />
 
@@ -175,7 +174,7 @@ const Register = () => {
             </button>
           </div>
 
-          {error && <h3>{error}</h3>}
+          {error && <h3 className="text-red-500">{error}</h3>}
 
           {/* Register Button */}
           <button

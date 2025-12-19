@@ -161,6 +161,7 @@ const Navbar = () => {
             </a>
           ) 
           : 
+
           (
             <a
               className="btn bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500

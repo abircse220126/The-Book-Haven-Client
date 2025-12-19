@@ -1,7 +1,8 @@
 import React, { use, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
-import { toast } from "react-toastify";
+import {  } from "react-toastify";
+import Swal from "sweetalert2";
 
 const AddBook = () => {
   // Variables to store input values
@@ -14,12 +15,9 @@ const AddBook = () => {
   const [coverImage, setCoverImage] = useState("");
   const [summary, setSummary] = useState("");
 
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const { user } = use(AuthContext);
-  console.log(user);
-  console.log(user.email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,21 +46,27 @@ const AddBook = () => {
       .then((data) => {
         console.log(data);
         if (data.insertedId) {
-
           // alert("data is already Inserted")
-          navigate("/mybook")
-          toast.success("Successfully Added!")
-
+          navigate("/mybook");
+          Swal.fire({
+            title: "Your Book is Submitted",
+            width: 600,
+            padding: "3em",
+            color: "#716add",
+            background: "#fff url(/images/trees.png)",
+            backdrop: `
+    rgba(0,0,123,0.4)
+    url("/images/nyan-cat.gif")
+    left top
+    no-repeat
+  `,
+          });
         }
       });
 
-     
-      // <Link to="/mybook"></Link>
+    // <Link to="/mybook"></Link>
   };
 
-  
-
- 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-700 via-pink-500 to-indigo-600 p-6">
       <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-12 w-full max-w-3xl">
