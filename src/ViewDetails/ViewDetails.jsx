@@ -1,18 +1,10 @@
 import React, { useRef } from "react";
 import { AuthContext } from "../Context/AuthContext/AuthContext";
 import { useLoaderData } from "react-router";
+import Comment from "./Comment/Comment";
 
 const ViewDetails = () => {
-  const { author, coverImage, genre, rating, summary, title, userEmail } =useLoaderData();
-
-//   console.log(author , coverImage , genre , rating , summary , title , userEmail)
-console.log(author)
-
-  // const book= use(AuthContext)
-  // const books=book.book
-
-  // console.log(books._id)
-
+  const { author, coverImage, genre, rating, summary, title, userEmail,} =useLoaderData();
   const scrollRef = useRef(null);
 
   const scrollLeft = () => {
@@ -55,6 +47,8 @@ console.log(author)
       img: "https://m.media-amazon.com/images/I/81Z1pZk3yGL._AC_UF1000,1000_QL80_.jpg",
     },
   ];
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 py-16 px-6">
@@ -131,6 +125,8 @@ console.log(author)
           </div>
         </div>
       </div>
+
+      <Comment></Comment>
 
       {/* Similar Books Carousel */}
       <div className="max-w-6xl mx-auto mt-16 relative">
