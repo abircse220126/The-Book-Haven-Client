@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const Comment = () => {
 
@@ -29,12 +30,10 @@ const Comment = () => {
             .then(res =>{
                 console.log(res.data.insertedId)  
                 reset()
-                alert("Comment posted successfully!");
+                toast.success('Successfully Added!')
             })
-        })
-       
-    }
-    
+        })     
+    }    
   return (
     <div className="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
       <h2 className="text-xl font-bold text-gray-800 mb-5">Add a Comment</h2>

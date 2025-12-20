@@ -20,6 +20,7 @@ import Delete from "./Component/DeletePage/Delete.jsx";
 import UpdateBookPage from "./Component/UpdatePage/UpdateBookPage.jsx";
 import PrivateRoute from "./Component/Route/PrivateRoute.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -112,6 +113,7 @@ createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <RouterProvider router={router} />,
+        <Toaster position="top-center" reverseOrder={false} />
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>

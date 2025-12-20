@@ -4,9 +4,10 @@ import BookCard from "../BookCard/BookCard";
 import Books from "../Books/Books";
 import BookHavenSection from "../BookHavenSection/BookHavenSection";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
+import ReviewsCarousel from "./ReviewsCarousel/ReviewsCarousel";
 
-const bookPromise = fetch("http://localhost:3000/books")
-.then((res) => res.json()
+const bookPromise = fetch("http://localhost:3000/books").then((res) =>
+  res.json()
 );
 
 const Home = () => {
@@ -33,6 +34,9 @@ const Home = () => {
       </div>
 
       <BookHavenSection></BookHavenSection>
+      <div>
+        <ReviewsCarousel></ReviewsCarousel>
+      </div>
     </div>
   );
 };
